@@ -1,0 +1,102 @@
+Implementare:
+Programul implementeaza cerinta folosind functiile din time.h pentru a calcula
+epoch time si functiile din stdio.h si functia strtok pentru parsarea
+fisierelor file_ls si usermap.txt si pentru transformarea din int in oct si
+atoi pentru transformarea din string in int
+
+MACRO-uri:
+MAX_LINE_LEN:
+lungimea maxima (caracterul terminal NULL inclus) a unei comenzi
+
+USERS:
+numele fisierul ce contine informatii despre utilizatori si grupuri
+
+FILES:
+numele fisierului ce contine informatii despre fisierele ce trebuie arhivate
+
+RECORD_SIZE:
+marimea unui bloc de date dintr-un fisier tar
+
+FILE_NAME_SIZE:
+marimea maxima (caracterul terminal NULL inclus) a numelui unui fisier
+
+MOD_SIZE:
+marimea (caracterul terminal NULL inclus) al sirului de caractere ce retine
+restrictiile de utilizare a fisierului
+
+ID_SIZE:
+marimea (caracterul terminal NULL inclus) al sirului de caractere ce retine
+id-ul utilizatorului sau al grupului ce detin fisierul
+
+SIZE_SIZE:
+marimea (caracterul terminal NULL inclus) al sirului de caractere ce retine
+marimea fisierului
+
+MTIME_SIZE:
+marimea (caracterul terminal NULL inclus) al sirului de caractere ce retine
+data ultimei modificari al fisierului
+
+CHKSUM_SIZE:
+marimea (caracterul terminal NULL inclus) al sirului de caractere ce retine
+sumade verificare a header-ului
+
+MAGIC_SIZE:
+marimea (caracterul terminal NULL inclus) al sirului de caractere ce retine
+cuvantul magic
+
+UGNAME_SIZE:
+marimea (caracterul terminal NULL inclus) al sirului de caractere ce retine
+numele utilizatorului sau grupului ce detin fisierul
+
+DEV_SIZE:
+marimea (caracterul terminal NULL inclus) al sirului de caractere ce retine
+date despre "device"
+
+PASSWD_SIZE:
+marimea (caracterul terminal NULL inclus) al sirului de caractere ce retine
+parola
+
+uniuni:
+record: vezi cerinta
+
+functii:
+char* parse_usermap_for(char *name, char line[MAX_LINE_LEN], char *delim):
+descriere:
+cauta in usermap.txt numele de utilizator sau de grup  din sirul de
+caratere name. in line retine linia la care se gaseste numele (daca nu gaseste
+numele, line nu ar trebui folosit cu valoriile  ramase) folosind strtok pentru a
+parsa line cu delimitatorii din sirul de caractere delim. dupa pelarea acestei
+functii, strtok va avea memorat intern o referire in sirul line si se va fi
+facut prima si numai prima apelare cu strtok pe sirul line.
+valoare de retur:
+pointerul line daca gaseste numele sau NULL daca nu
+parametrii:
+name: numele ce trebuie cautat
+line: un vector de tip char ce va retine liniile din usermap.txt
+delim: un sir de caractere ce retine delimitatorii pentru strtok
+
+void load( char *archvname):
+descriere:
+creaza arhiva tar cu numele indicat de archvname folosind formatul specificat in
+tema care este o particularizare a vechiului format GNU v7, dar care foloseste
+alt cuvant "magic". Aceasta functie nu verifica daca fisierele indicate in
+file_ls exista
+parametrii:
+archvname: numele arhivei ce trebuei create sau rescrise daca exista deja
+
+void list (char * archivename):
+desriere:
+afiseaza la stdout, unul pe line, toate numele fisierelor din arhiva indicata de
+archivename
+parametrii:
+archivename: numele arhivei. vezi desrierea functiei
+
+void get (char *archivename, char *filename):
+descriere:
+afiseaza la stdout continutul fisierului indicat de filename din arhiva indicata
+de archivename. daca fisierul nu exista, va indica un mesaj de eroare la stderr.
+functia nu verifica daca arhiva exista.
+parametrii:
+archivename: numele arhivei. vezi desrierea functiei
+filename: numele unui fisier din arhiva. vezi descrierea functiei
+
